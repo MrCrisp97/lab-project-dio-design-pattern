@@ -1,14 +1,10 @@
-package com.service.impl;
+package br.com.service.impl;
 
-import com.model.Produto;
 
-/**
- * Interface que define o padrão <b>Strategy</b> no domínio de cliente. Com
- * isso, se necessário, podemos ter multiplas implementações dessa mesma
- * interface.
- * 
- * @author falvojr
- */
+
+import br.com.model.Produto;
+
+
 public interface ProdutoService {
 
 	Iterable<Produto> buscarTodos();

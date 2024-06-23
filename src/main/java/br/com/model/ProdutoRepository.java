@@ -1,4 +1,4 @@
-package com.model;
+package br.com.model;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

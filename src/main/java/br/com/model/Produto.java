@@ -1,9 +1,9 @@
-package com.model;
+package br.com.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Produto {
@@ -13,8 +13,6 @@ public class Produto {
     private String nome;
     private int qtd;
     private double preco;
-
-    public Produto() {}
 
     public Produto(long id, String nome, int qtd, double preco) {
         this.id = id;

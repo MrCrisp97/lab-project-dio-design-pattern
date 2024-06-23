@@ -1,4 +1,4 @@
-package com.controller;
+package br.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,45 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.model.Produto;
-import com.service.impl.ProdutoService;;
+import br.com.model.Produto;
+import br.com.service.impl.ProdutoService;;
 
 @RestController
 @RequestMapping("produtos")
 public class ProdutoRestController {
 
-    @Autowired
+    @Autowired(required = false)
     private ProdutoService ProdutoService;
 
     @PostMapping
-    public ResponseEntity<String> adicionaProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> adicionaProduto(@RequestBody Produto produto) {
         ProdutoService.adicionaProduto(produto.getNome(), produto.getQtd(), produto.getPreco());
-        return ResponseEntity.ok("Produto adicionado");
+        return ResponseEntity.ok(produto);
     }
 
     @PutMapping("/{id}")
-	public ResponseEntity<String> atualizaQtd(@PathVariable Long id, @RequestParam int qtd) {
+	public ResponseEntity<Produto> atualizaQtd(@PathVariable Long id, @RequestParam int qtd) {
 		ProdutoService.atualizaQtd(id, qtd);
-		return ResponseEntity.ok("Quantidade do Produto Atualizada");
+		return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-	public ResponseEntity<String> atualizaPreco(@PathVariable Long id, @RequestParam double preco) {
-		ProdutoService.atualizaPreco(id, preco);
-		return ResponseEntity.ok("Preço do Produto Atualizado");
-    }
-
+   
     @DeleteMapping("/{id}")
-	public ResponseEntity<String> deletar(@PathVariable Long id) {
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		ProdutoService.deletar(id);
-		return ResponseEntity.ok("Produto Removido");
+		return ResponseEntity.ok().build();
 	}
     
     @GetMapping("/{id}")
 	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
 		Produto produto = ProdutoService.buscarPorId(id);
         if (produto != null) {
-            return ResponseEntity.ok(produto);
+            return ResponseEntity.ok(ProdutoService.buscarPorId(id));
         } else {
             return ResponseEntity.notFound().build();
         }
