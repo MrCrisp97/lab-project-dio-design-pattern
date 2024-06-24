@@ -9,22 +9,25 @@ import javax.persistence.Id;
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String nome;
     private int qtd;
     private double preco;
+    
+    public Produto(){}
 
-    public Produto(long id, String nome, int qtd, double preco) {
+
+    public Produto(Long id, String nome, int qtd, double preco) {
         this.id = id;
         this.nome = nome;
         this.qtd = qtd;
         this.preco = preco;
     }
     
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNome() {

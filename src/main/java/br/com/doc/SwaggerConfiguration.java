@@ -1,7 +1,7 @@
 package br.com.doc;
 
-import java.util.Arrays;
-import java.util.HashSet;
+//import java.util.Arrays;
+//import java.util.HashSet;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
     private Contact contato() {
         return new Contact(
-                "Seu nome",
+                "MrCrisp",
                 "http://www.seusite.com.br",
                 "voce@seusite.com.br");
     }
@@ -26,12 +26,8 @@ public class SwaggerConfiguration {
 
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 
-        apiInfoBuilder.title("Title - Rest API");
-        apiInfoBuilder.description("API exemplo de uso de Springboot REST API");
-        apiInfoBuilder.version("1.0");
-        apiInfoBuilder.termsOfServiceUrl("Termo de uso: Open Source");
-        apiInfoBuilder.license("Licença - Sua Empresa");
-        apiInfoBuilder.licenseUrl("http://www.seusite.com.br");
+        apiInfoBuilder.title("Controle de Estoque");
+        apiInfoBuilder.description("Lab Project da DIO. Implementando Design Pattern e Rest API");
         apiInfoBuilder.contact(this.contato());
 
         return apiInfoBuilder;
@@ -46,9 +42,9 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("br.com.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(this.informacoesApi().build())
-                .consumes(new HashSet<String>(Arrays.asList("application/json")))
-                .produces(new HashSet<String>(Arrays.asList("application/json")));
+                .apiInfo(this.informacoesApi().build());
+                //.consumes(new HashSet<String>(Arrays.asList("application/json")))
+                //.produces(new HashSet<String>(Arrays.asList("application/json")));
 
         return docket;
     }

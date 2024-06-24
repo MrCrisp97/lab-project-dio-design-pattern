@@ -1,5 +1,7 @@
 package br.com.controller;
 
+//import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.model.Produto;
-import br.com.service.impl.ProdutoService;;
+import br.com.service.ProdutoService;
 
 @RestController
 @RequestMapping("produtos")
@@ -24,24 +26,26 @@ public class ProdutoRestController {
 
     @PostMapping
     public ResponseEntity<Produto> adicionaProduto(@RequestBody Produto produto) {
-        ProdutoService.adicionaProduto(produto.getNome(), produto.getQtd(), produto.getPreco());
+        ProdutoService.adicionaProduto(produto, produto.getNome(), produto.getQtd(), produto.getPreco());
         return ResponseEntity.ok(produto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
 	public ResponseEntity<Produto> atualizaQtd(@PathVariable Long id, @RequestParam int qtd) {
-		ProdutoService.atualizaQtd(id, qtd);
+		Produto produto = ProdutoService.buscarPorId(id);
+        ProdutoService.atualizaQtd(produto, id, qtd);
 		return ResponseEntity.ok().build();
     }
 
+
    
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		ProdutoService.deletar(id);
 		return ResponseEntity.ok().build();
 	}
     
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
 	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
 		Produto produto = ProdutoService.buscarPorId(id);
         if (produto != null) {
@@ -51,9 +55,14 @@ public class ProdutoRestController {
         }
 	}
 
-    @GetMapping
+    @GetMapping()
 	public ResponseEntity<Iterable<Produto>> buscarTodos() {
-		return ResponseEntity.ok(ProdutoService.buscarTodos());
+        return ResponseEntity.ok(ProdutoService.buscarTodos());
 	}
 
+    @GetMapping("total")
+    public ResponseEntity<Double> calculaTotal(){
+        double total = ProdutoService.calculaTotal();
+        return ResponseEntity.ok(total);
+    }
 }
